@@ -1,0 +1,17 @@
+[
+  {
+    "tone": 130,
+    "timeStart": 60,
+    "timeEnd": 100
+  },
+  {
+    "tone": 400,
+    "timeStart": 100,
+    "timeEnd": 120
+  },
+  {
+    "tone": 200,
+    "timeStart": 120,
+    "timeEnd": 200
+  }
+]
