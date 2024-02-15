@@ -1,9 +1,6 @@
 "use client";
 
-import useCanvasDimension from "@/lib/hooks/useCanvasDimension";
-import useDimension from "@/lib/hooks/useDimension";
 import React, { useEffect, useRef, useState } from "react";
-import { MicProcessor } from "../_config/mic-processor";
 import { GraphProcessor } from "../_config/graph-processor";
 
 const VolumeSection = () => {

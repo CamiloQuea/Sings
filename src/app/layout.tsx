@@ -5,7 +5,7 @@ import { Inter as FontSans } from "next/font/google";
 import { ReactNode } from "react";
 import { ThemeProvider } from "./_providers/theme-provider";
 
-export const fontSans = FontSans({
+const fontSans = FontSans({
   subsets: ["latin"],
   variable: "--font-sans",
 });

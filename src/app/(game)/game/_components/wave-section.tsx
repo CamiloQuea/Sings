@@ -1,6 +1,5 @@
 "use client";
 
-import useDimension from "@/lib/hooks/useDimension";
 import { ElementRef, useEffect, useRef, useState } from "react";
 import { GraphProcessor } from "../_config/graph-processor";
 
