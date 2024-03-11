@@ -1,8 +1,12 @@
+import { NoteMicProcessor } from "./note-mic-processor";
+
 export class GraphProcessor {
 
     audioCtx: AudioContext;
     analyserNode: AnalyserNode;
     microphoneStream: MediaStreamAudioSourceNode | null;
+
+    micProcessor = new NoteMicProcessor()
 
     constructor() {
         this.audioCtx = new AudioContext();
@@ -12,9 +16,7 @@ export class GraphProcessor {
         this.microphoneStream = null;
     }
 
-    init(
-        // getFreq: (onResult: typeof this.getPitch) => void
-    ): AnalyserNode {
+    init(): AnalyserNode {
         this.analyserNode.minDecibels = -80;
         this.analyserNode.maxDecibels = -10;
         this.analyserNode.smoothingTimeConstant = 0.35;

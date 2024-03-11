@@ -43,11 +43,11 @@ const GraphSection = () => {
 
       for (let i = 0; i < bufferLength; i++) {
         barHeight = dataArray[i];
-
+        // console.log(barHeight);
         canvasContext.fillStyle = `white`;
         canvasContext.fillRect(
           x,
-          height - barHeight / 2,
+          height - barHeight / 3,
           barWidth,
           barHeight / 2
         );
