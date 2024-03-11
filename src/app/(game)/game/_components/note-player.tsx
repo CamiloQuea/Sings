@@ -8,11 +8,19 @@ type NotePlayer = {
   type: string;
 };
 
-const smash_mountain_notes: NotePlayer[] = [
-  { freq: 220, duration: 0.3, type: "flat" },
-  { freq: 230, duration: 0.5, type: "flat" },
-  { freq: 210, duration: 1, type: "flat" },
-  { freq: 130, duration: 0.5, type: "flat" },
+const song: NotePlayer[] = [
+  { freq: 440, duration: 0.5, type: "flat" }, // C4
+  { freq: 440, duration: 0.5, type: "flat" }, // C4
+  { freq: 330, duration: 0.5, type: "flat" }, // G4
+  { freq: 330, duration: 0.5, type: "flat" }, // G4
+  { freq: 440, duration: 0.5, type: "flat" }, // C4
+  { freq: 392, duration: 0.5, type: "flat" }, // A4
+  { freq: 330, duration: 1.0, type: "flat" }, // G4
+  { freq: 293, duration: 0.5, type: "flat" }, // E4
+  { freq: 293, duration: 0.5, type: "flat" }, // E4
+  { freq: 330, duration: 0.5, type: "flat" }, // G4
+  { freq: 392, duration: 0.5, type: "flat" }, // A4
+  { freq: 440, duration: 1.0, type: "flat" }, // C4
 ];
 
 const fps = (fps: number) => {
@@ -33,14 +41,14 @@ const NotePlayer = () => {
 
     let totalTime = 0;
 
-    for (let index = 0; index < smash_mountain_notes.length; index++) {
-      const element = smash_mountain_notes[index];
+    for (let index = 0; index < song.length; index++) {
+      const element = song[index];
       totalTime += element.duration;
     }
 
     function animate() {
       if (!canvas || !ctx) return;
-      const note = smash_mountain_notes[i];
+      const note = song[i];
 
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
@@ -59,10 +67,10 @@ const NotePlayer = () => {
 
       let width_shift = 0;
 
-      for (let index = 0; index < smash_mountain_notes.length; index++) {
-        const element = smash_mountain_notes[index];
+      for (let index = 0; index < song.length; index++) {
+        const element = song[index];
 
-        if (element.freq === note.freq) {
+        if (element.freq === note.freq && index === i) {
           ctx.fillStyle = "red";
         } else {
           ctx.fillStyle = "white";
@@ -77,15 +85,14 @@ const NotePlayer = () => {
           1
         );
 
-        if (index < smash_mountain_notes.length) {
+        if (index < song.length) {
           width_shift += width_note;
         } else {
           width_shift = 0;
         }
-        console.log(width_note);
       }
 
-      if (i + 1 < smash_mountain_notes.length) {
+      if (i + 1 < song.length) {
         i++;
       } else {
         i = 0;
@@ -106,8 +113,11 @@ const NotePlayer = () => {
   }, [isMounted]);
 
   return (
-    <div>
+    <div className="relative">
       <canvas ref={canvasRef} className="w-full h-full border" />
+      <div className="absolute bottom-0 left-0  text-xs border px-2 py-1 rounded-tr">
+        Playing...
+      </div>
     </div>
   );
 };
