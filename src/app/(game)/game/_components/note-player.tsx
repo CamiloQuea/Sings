@@ -3,21 +3,21 @@ import useGame from "@/hooks/useGame";
 import useIsMounted from "@/hooks/useIsMounted";
 import { type NotePlayer } from "@/lib/song";
 import React, { useCallback, useEffect, useRef } from "react";
-import { CanvasPlayer } from "../_config/canvas-player";
+import { CanvasPlayer, GameState } from "../_config/canvas-player";
 
 const song_notes: NotePlayer[] = [
-  { freq: 440, duration: 500, type: "flat" }, // C4
-  { freq: 440, duration: 500, type: "flat" }, // C4
-  { freq: 330, duration: 500, type: "flat" }, // G4
-  { freq: 330, duration: 500, type: "flat" }, // G4
-  { freq: 440, duration: 500, type: "flat" }, // C4
-  { freq: 392, duration: 500, type: "flat" }, // A4
-  { freq: 330, duration: 1000, type: "flat" }, // G4
-  { freq: 293, duration: 500, type: "flat" }, // E4
-  { freq: 330, duration: 500, type: "flat" }, // G4
-  { freq: 392, duration: 500, type: "flat" }, // A4
-  { freq: 293, duration: 500, type: "flat" }, // E4
-  { freq: 440, duration: 1000, type: "flat" }, // C4
+  { freq: 220, duration: 500, type: "flat" }, // C4
+  { freq: 220, duration: 500, type: "flat" }, // C4
+  { freq: 165, duration: 500, type: "flat" }, // G4
+  { freq: 165, duration: 500, type: "flat" }, // G4
+  { freq: 220, duration: 500, type: "flat" }, // C4
+  { freq: 196, duration: 500, type: "flat" }, // A4
+  { freq: 165, duration: 1000, type: "flat" }, // G4
+  { freq: 146.5, duration: 500, type: "flat" }, // E4
+  { freq: 165, duration: 500, type: "flat" }, // G4
+  { freq: 196, duration: 500, type: "flat" }, // A4
+  { freq: 146.5, duration: 500, type: "flat" }, // E4
+  { freq: 220, duration: 1000, type: "flat" }, // C4
 ];
 
 const fps = (fps: number) => {
@@ -34,22 +34,18 @@ const NotePlayer = () => {
   const initialize = useCallback(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
-    const canvasPlayer = new CanvasPlayer(canvasRef.current, song_notes);
+
+    const gameState = new GameState(song_notes)
+
+    const canvasPlayer = new CanvasPlayer(canvasRef.current, gameState);
 
     let start = Date.now();
 
     setInterval(() => {
       const now = Date.now();
       const diff = now - start;
-      // console.log({ diff, TotalTimeMs: canvasPlayer.TotalTimeMs });
 
-      // if (canvasPlayer.currentIndex >= song_notes.length) {
-      //   canvasPlayer.currentIndex = 0;
-      // } else {
-      //   canvasPlayer.currentIndex++;
-      // }
-
-      if (canvasPlayer.TotalTimeMs <= diff) {
+      if (canvasPlayer.GameState.TotalTimeMs <= diff) {
         start = Date.now();
       }
       canvasPlayer.draw(now - start);

@@ -65,7 +65,7 @@ const SoundDebugger = () => {
   }, []);
 
   return (
-    <div className="absolute  right-0 p-2 border mr-2 min-w-60 rounded">
+    <div className="absolute  right-0 p-2 border bg-background m-2 min-w-60 rounded">
       <div className="flex items-center ">
         <h2 className="select-none">Debugger</h2>
         <button className="ml-auto">

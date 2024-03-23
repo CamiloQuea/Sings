@@ -34,7 +34,9 @@
  
     --radius: 0.5rem;
   }
- 
+ *{
+  image-rendering: pixelated
+ }
   .dark {
     --background: 0 0% 3.9%;
     --foreground: 0 0% 98%;
