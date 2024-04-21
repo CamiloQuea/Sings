@@ -5,7 +5,7 @@ import { GraphProcessor } from "../_config/graph-processor";
 
 const GraphSection = () => {
   const [graphProcessor, setGraphProcessor] = useState<GraphProcessor | null>(
-    null
+    null,
   );
 
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -43,13 +43,18 @@ const GraphSection = () => {
 
       for (let i = 0; i < bufferLength; i++) {
         barHeight = dataArray[i];
+
+        if (typeof barHeight === "undefined") {
+          continue;
+        }
+
         // console.log(barHeight);
         canvasContext.fillStyle = `white`;
         canvasContext.fillRect(
           x,
           height - barHeight / 3,
           barWidth,
-          barHeight / 2
+          barHeight / 2,
         );
 
         x += barWidth;
@@ -60,8 +65,8 @@ const GraphSection = () => {
 
   return (
     <>
-      <div className="rounded h-20 min-w-0 w-full overflow-hidden  border ">
-        <canvas ref={canvasRef} className="w-full h-full " />
+      <div className="h-20 w-full min-w-0 overflow-hidden rounded  border ">
+        <canvas ref={canvasRef} className="h-full w-full " />
       </div>
     </>
   );
