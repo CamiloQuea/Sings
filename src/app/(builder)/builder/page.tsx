@@ -49,7 +49,8 @@ export default function Dashboard() {
             />
 
             <p className="pl-3 text-sm text-muted-foreground">
-              You can edit more details in the "Information" tab bellow
+              You can edit more details in the &quot;Information&quot; tab
+              bellow
             </p>
           </div>
 
