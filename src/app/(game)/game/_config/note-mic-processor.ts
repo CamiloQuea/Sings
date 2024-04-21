@@ -1,23 +1,20 @@
 import { MicrophoneConnection } from "./microphone";
 
 interface MicProcessorInterface {
-  init(): this
+  init(): this;
 }
 
 export class NoteMicProcessor implements MicProcessorInterface {
-
-  micConnection = new MicrophoneConnection()
+  micConnection = new MicrophoneConnection();
   audioCtx: AudioContext | null = null;
   analyser: AnalyserNode | null = null;
 
-
   init() {
-
     this.micConnection.connect((audioStream) => {
-      const state = this.startCtx()
+      const state = this.startCtx();
       const microphoneStream = state.ctx?.createMediaStreamSource(audioStream);
       microphoneStream?.connect(state.analyser);
-    })
+    });
 
     return this;
   }
@@ -26,12 +23,10 @@ export class NoteMicProcessor implements MicProcessorInterface {
     this.audioCtx = new AudioContext();
     this.analyser = this.audioCtx.createAnalyser();
 
-
     return {
       ctx: this.audioCtx,
-      analyser: this.analyser
-    }
-
+      analyser: this.analyser,
+    };
   }
 
   getPitch = () => {
@@ -43,7 +38,11 @@ export class NoteMicProcessor implements MicProcessorInterface {
     // return this.detect_pitch(buffer, 200, 1, this.audioCtx?.sampleRate || 0, [20, 2000]);
   };
 
-  noteIsSimilarEnough(noteFreq: number, previousValueToDisplay: number, smoothingThreshold: number) {
+  noteIsSimilarEnough(
+    noteFreq: number,
+    previousValueToDisplay: number,
+    smoothingThreshold: number,
+  ) {
     if (noteFreq === -1) {
       return false;
     }
@@ -57,6 +56,11 @@ export class NoteMicProcessor implements MicProcessorInterface {
     let sumOfSquares = 0;
     for (let i = 0; i < SIZE; i++) {
       let val = buffer[i];
+
+      if (val === undefined) {
+        continue;
+      }
+
       sumOfSquares += Math.pow(val, 2);
     }
     let rootMeanSquare = Math.sqrt(sumOfSquares / SIZE);
@@ -72,8 +76,13 @@ export class NoteMicProcessor implements MicProcessorInterface {
 
     // Walk up for r1
     for (let i = 0; i < SIZE / 2; i++) {
-      // console.log(Math.abs(buffer[i]), i)
-      if (Math.abs(buffer[i]) > threshold) {
+      const value = buffer[i];
+
+      if (value === undefined) {
+        continue;
+      }
+
+      if (Math.abs(value) > threshold) {
         r1 = i;
         break;
       }
@@ -81,7 +90,13 @@ export class NoteMicProcessor implements MicProcessorInterface {
 
     // Walk down for r2
     for (let i = 1; i < SIZE / 2; i++) {
-      if (Math.abs(buffer[SIZE - i]) > threshold) {
+      const value = buffer[SIZE - i];
+
+      if (value === undefined) {
+        continue;
+      }
+
+      if (Math.abs(value) > threshold) {
         r2 = SIZE - i;
         break;
       }
@@ -98,7 +113,14 @@ export class NoteMicProcessor implements MicProcessorInterface {
     // For each potential offset, calculate the sum of each buffer value times its offset value
     for (let i = 0; i < SIZE; i++) {
       for (let j = 0; j < SIZE - i; j++) {
-        c[i] += buffer[j] * buffer[j + i];
+        const valueBuff1 = buffer[j];
+        const valueBuff2 = buffer[i];
+
+        if (valueBuff1 === undefined || valueBuff2 === undefined) {
+          continue;
+        }
+
+        c[i] += valueBuff1 * valueBuff2;
       }
     }
 
@@ -137,11 +159,8 @@ export class NoteMicProcessor implements MicProcessorInterface {
 
     return sampleRate / T0;
   }
-
-
 }
 // export class MicProcessor implements MicProcessorInterface {
-
 
 //   audioCtx: AudioContext;
 //   analyserNode: AnalyserNode;
@@ -154,8 +173,6 @@ export class NoteMicProcessor implements MicProcessorInterface {
 //     this.microphoneStream = null;
 //   }
 
-
-
 //   init(getFreq: (onResult: typeof this.getPitch) => void) {
 //     this.analyserNode.minDecibels = -100;
 //     this.analyserNode.maxDecibels = -10;
@@ -165,7 +182,6 @@ export class NoteMicProcessor implements MicProcessorInterface {
 //       console.log("Sorry, getUserMedia is required for the app.");
 //       return;
 //     }
-
 
 //     navigator.mediaDevices
 //       .getUserMedia({
@@ -186,7 +202,6 @@ export class NoteMicProcessor implements MicProcessorInterface {
 //       });
 //   }
 
-
 //   getPitch = () => {
 //     let bufferLength = this.analyserNode.fftSize;
 //     let buffer = new Float32Array(bufferLength);
@@ -196,9 +211,7 @@ export class NoteMicProcessor implements MicProcessorInterface {
 //     return autoCorrelateValue;
 //   };
 
-
 //   noteIsSimilarEnough(noteFreq: number, previousValueToDisplay: number, smoothingThreshold: number) {
-
 
 //     if (noteFreq === -1) {
 //       return false;
@@ -208,5 +221,4 @@ export class NoteMicProcessor implements MicProcessorInterface {
 //   }
 // }
 
-
-// function 
+// function

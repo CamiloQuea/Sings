@@ -5,7 +5,7 @@ import { GraphProcessor } from "../_config/graph-processor";
 
 const WaveSection = () => {
   const [graphProcessor, setGraphProcessor] = useState<GraphProcessor | null>(
-    null
+    null,
   );
   // const { dimensions, setDimensions } = useDimension();
 
@@ -48,7 +48,13 @@ const WaveSection = () => {
 
       canvasContext.beginPath();
       for (let i = 0; i < bufferLength; i++) {
-        const v = dataArray[i] / 128.0;
+        const value = dataArray[i];
+
+        if (typeof value === "undefined") {
+          continue;
+        }
+
+        const v = value / 128.0;
         const y = (v * height) / 2;
 
         if (i === 0) {
@@ -70,8 +76,8 @@ const WaveSection = () => {
 
   return (
     <>
-      <div className="rounded h-20 min-w-0 w-full overflow-hidden  border ">
-        <canvas ref={canvasRef} className="w-full h-full " />
+      <div className="h-20 w-full min-w-0 overflow-hidden rounded  border ">
+        <canvas ref={canvasRef} className="h-full w-full " />
       </div>
     </>
   );
