@@ -65,7 +65,7 @@ const SoundDebugger = () => {
   }, []);
 
   return (
-    <div className="absolute  right-0 p-2 border bg-background m-2 min-w-60 rounded">
+    <div className="absolute  right-0 bottom-0 p-2 border bg-background m-2 min-w-60 rounded">
       <div className="flex items-center ">
         <h2 className="select-none">Debugger</h2>
         <button className="ml-auto">
@@ -80,7 +80,7 @@ const SoundDebugger = () => {
             <SectionIcon />
           </DropdownMenuTrigger>
           <DropdownMenuContent side="bottom" align="end">
-            <DropdownMenuLabel>My Account</DropdownMenuLabel>
+            <DropdownMenuLabel>Graphs</DropdownMenuLabel>
             <DropdownMenuSeparator />
             <DropdownMenuCheckboxItem
               checked={showSections.notes}
@@ -88,7 +88,7 @@ const SoundDebugger = () => {
                 handleToggleSection("notes");
               }}
             >
-              Status Bar
+              Notes
             </DropdownMenuCheckboxItem>
             <DropdownMenuCheckboxItem
               checked={showSections.graph}
@@ -128,6 +128,7 @@ const SoundDebugger = () => {
         {showSections.graph && <GraphSection />}
         {showSections.wave && <WaveSection />}
         {showSections.volume && <VolumeSection />}
+        
       </div>
     </div>
   );

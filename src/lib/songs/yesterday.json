@@ -1,0 +1,44 @@
+{
+    "song":{
+        "name": "Yesterday",
+        "tempo": 97,
+        "timeSignature": [4, 4],
+        "artist": "The Beatles",
+        "song_length": 2.05
+    },
+    "notes_sync":[
+        {
+            "frequency":  261.63,
+            "duration": 2500
+        }
+    ],
+    "lyrics_sync": [
+        {
+            "lyric": "Yesterday",
+            "duration": 2500,
+            "startAt": 5200
+        },
+        {
+            "lyric": "All my troubles seemed so far away",
+            "duration": 4250,
+            "startAt": 8000
+        },
+        {
+            "lyric": "Now it looks as though they're here to stay",
+            "duration": 4000,
+            "startAt": 13000
+        },
+        {
+            "lyric": "Oh, I believe in yesterday",
+            "duration": 4500,
+            "startAt": 17000
+        },
+        {
+            "lyric": "Suddenly",
+            "duration": 2500,
+            "startAt": 22000
+        }
+
+    ]
+
+}

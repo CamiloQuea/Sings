@@ -1,16 +1,16 @@
-import React, { useState } from 'react'
+import React, { useState } from "react";
 
 const useIsMounted = () => {
+  const [isMounted, setIsMounted] = useState(false);
 
-    const [isMounted, setIsMounted] = useState(false);
+  React.useEffect(() => {
+    const isMounted = typeof window !== "undefined";
+    if (isMounted) {
+      setIsMounted(true);
+    }
+  }, []);
 
-    React.useEffect(() => {
-        if (typeof window !== "undefined") {
-            setIsMounted(true);
-        }
-    }, [])
+  return isMounted;
+};
 
-    return isMounted;
-}
-
-export default useIsMounted
+export default useIsMounted;
